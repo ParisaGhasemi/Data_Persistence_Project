@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,9 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+
+    public TextMeshProUGUI nameText;
+
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -36,6 +40,9 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+
+        nameText.text = $"Name : {MenuManager.Instance.playerName}";
+        AddPoint(MenuManager.Instance.playerScore);
     }
 
     private void Update()
@@ -66,11 +73,14 @@ public class MainManager : MonoBehaviour
     {
         m_Points += point;
         ScoreText.text = $"Score : {m_Points}";
+        MenuManager.Instance.playerScore = m_Points;
     }
 
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        MenuManager.Instance.SaveRecord();
     }
+
 }
