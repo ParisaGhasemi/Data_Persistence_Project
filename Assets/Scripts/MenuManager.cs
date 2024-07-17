@@ -14,10 +14,9 @@ public class MenuManager : MonoBehaviour
     public TMP_InputField nameText;
 
     public string bestRecordName;
-    public string bestRecordScore;
+    public int bestRecordScore;
 
     public string playerName;
-    public int playerScore;
 
     private void Awake()
     {
@@ -44,8 +43,8 @@ public class MenuManager : MonoBehaviour
     public void SaveRecord()
     {
         SaveData data = new SaveData();
-        data.playerName = playerName;
-        data.playerScore = playerScore;
+        data.playerName = bestRecordName;
+        data.playerScore = bestRecordScore;
 
         string json = JsonUtility.ToJson(data);
     
@@ -60,8 +59,8 @@ public class MenuManager : MonoBehaviour
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            playerScore = data.playerScore;
-            playerName = data.playerName;
+            bestRecordScore = data.playerScore;
+            bestRecordName = data.playerName;
         }
     }
 

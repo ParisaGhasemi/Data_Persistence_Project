@@ -13,6 +13,8 @@ public class MainManager : MonoBehaviour
 
     public Text ScoreText;
 
+    public Text RecordText;
+
     public TextMeshProUGUI nameText;
 
     public GameObject GameOverText;
@@ -42,7 +44,7 @@ public class MainManager : MonoBehaviour
         }
 
         nameText.text = $"Name : {MenuManager.Instance.playerName}";
-        AddPoint(MenuManager.Instance.playerScore);
+        RecordText.text = $"Best Score: {MenuManager.Instance.bestRecordName} : {MenuManager.Instance.bestRecordScore}";
     }
 
     private void Update()
@@ -73,7 +75,11 @@ public class MainManager : MonoBehaviour
     {
         m_Points += point;
         ScoreText.text = $"Score : {m_Points}";
-        MenuManager.Instance.playerScore = m_Points;
+        if (m_Points > MenuManager.Instance.bestRecordScore)
+        {
+            MenuManager.Instance.bestRecordName = MenuManager.Instance.playerName;
+            MenuManager.Instance.bestRecordScore = m_Points;
+        }
     }
 
     public void GameOver()
